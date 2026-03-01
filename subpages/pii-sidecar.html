@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verbal Dynamics — PII Anonymizer Sidecar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#090b12;--card:#111625;--line:rgba(255,255,255,.1);--txt:#eef2ff;--mut:#a6b0cf;--c:#00e5ff;--p:#8b5cf6;--g:linear-gradient(120deg,var(--c),var(--p));}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:Inter,sans-serif;background:var(--bg);color:var(--txt)}
+    .wrap{width:min(1060px,92vw);margin:0 auto} nav{position:sticky;top:0;background:rgba(9,11,18,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;gap:1rem;flex-wrap:wrap}.brand{font-family:Syne,sans-serif;font-weight:700}.brand span{background:var(--g);-webkit-background-clip:text;color:transparent}
+    .lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}.lang button{background:transparent;border:0;color:var(--mut);padding:.35rem .6rem;font-weight:700;cursor:pointer}.lang button.active{background:var(--g);color:#050608}
+    main{padding:3rem 0 4rem}h1{font-family:Syne,sans-serif;font-size:clamp(2rem,6vw,3.6rem);margin:.9rem 0 1rem;line-height:1.05}.lead{color:var(--mut);max-width:760px;line-height:1.7}
+    .badge{display:inline-block;border:1px solid rgba(0,229,255,.4);color:var(--c);border-radius:999px;padding:.3rem .8rem;font-size:.75rem}
+    section{margin-top:2rem}.title{font-family:Syne,sans-serif;font-size:clamp(1.25rem,3vw,1.9rem);margin-bottom:.7rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem}
+    .card h3{font-family:Syne,sans-serif;margin-bottom:.35rem}.card p,.card li{color:var(--mut);line-height:1.65}
+    ul{padding-left:1rem}.btn{display:inline-block;margin-top:1.2rem;color:var(--txt);text-decoration:none;border:1px solid var(--line);padding:.7rem 1rem;border-radius:10px}
+  </style>
+</head>
+<body>
+  <nav><div class="wrap nav"><div class="brand">Verbal <span>Dynamics AI</span> · PII Sidecar</div><div class="lang"><button class="l active" data-lang="de">DE</button><button class="l" data-lang="en">EN</button></div></div></nav>
+  <main class="wrap">
+    <span class="badge" data-i18n="badge">Produkt Showcase</span>
+    <h1 data-i18n="h1">PII Anonymizer Sidecar</h1>
+    <p class="lead" data-i18n="lead">Ein privacy-first Sidecar für LLM-Workflows: sensible Daten werden vor dem Modellaufruf deterministisch anonymisiert und bei Bedarf sicher wiederhergestellt.</p>
+
+    <section>
+      <h2 class="title" data-i18n="problem_t">Problem</h2>
+      <p class="lead" data-i18n="problem_p">Viele Teams möchten LLMs nutzen, dürfen aber keine personenbezogenen Daten ungeschützt an externe Systeme senden.</p>
+    </section>
+
+    <section>
+      <h2 class="title" data-i18n="solution_t">Lösung</h2>
+      <div class="grid">
+        <article class="card"><h3 data-i18n="s1">Deterministische Anonymisierung</h3><p data-i18n="s1p">Personen-/Org-Daten werden durch konsistente Platzhalter ersetzt.</p></article>
+        <article class="card"><h3 data-i18n="s2">Sichere Wiederherstellung</h3><p data-i18n="s2p">Nach Verarbeitung können Originalwerte kontrolliert zurückgemappt werden.</p></article>
+        <article class="card"><h3 data-i18n="s3">Mehrere Interfaces</h3><p data-i18n="s3p">Nutzbar als API, CLI und integrierbare Library.</p></article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="title" data-i18n="eng_t">Engineering Scope</h2>
+      <ul>
+        <li data-i18n="e1">Architektur + Threat-aware Design</li>
+        <li data-i18n="e2">Requirements und Testkatalog pro Phase</li>
+        <li data-i18n="e3">Implementierung mit Verifikationsgates</li>
+        <li data-i18n="e4">Deployment- und Integrationsdokumentation</li>
+      </ul>
+    </section>
+
+    <a class="btn" href="../index.html" data-i18n="back">Zurück zur Startseite</a>
+  </main>
+
+  <script>
+    const i18n={
+      de:{badge:'Produkt Showcase',h1:'PII Anonymizer Sidecar',lead:'Ein privacy-first Sidecar für LLM-Workflows: sensible Daten werden vor dem Modellaufruf deterministisch anonymisiert und bei Bedarf sicher wiederhergestellt.',problem_t:'Problem',problem_p:'Viele Teams möchten LLMs nutzen, dürfen aber keine personenbezogenen Daten ungeschützt an externe Systeme senden.',solution_t:'Lösung',s1:'Deterministische Anonymisierung',s1p:'Personen-/Org-Daten werden durch konsistente Platzhalter ersetzt.',s2:'Sichere Wiederherstellung',s2p:'Nach Verarbeitung können Originalwerte kontrolliert zurückgemappt werden.',s3:'Mehrere Interfaces',s3p:'Nutzbar als API, CLI und integrierbare Library.',eng_t:'Engineering Scope',e1:'Architektur + Threat-aware Design',e2:'Requirements und Testkatalog pro Phase',e3:'Implementierung mit Verifikationsgates',e4:'Deployment- und Integrationsdokumentation',back:'Zurück zur Startseite'},
+      en:{badge:'Product showcase',h1:'PII Anonymizer Sidecar',lead:'A privacy-first sidecar for LLM workflows: sensitive data is deterministically anonymized before model calls and safely restored when needed.',problem_t:'Problem',problem_p:'Many teams want to use LLMs but cannot send personally identifiable data to external systems unprotected.',solution_t:'Solution',s1:'Deterministic anonymization',s1p:'Person and organization entities are replaced with stable placeholders.',s2:'Secure restoration',s2p:'Original values can be mapped back in a controlled post-processing step.',s3:'Multiple interfaces',s3p:'Available as API, CLI, and embeddable library.',eng_t:'Engineering scope',e1:'Architecture + threat-aware design',e2:'Requirements and test catalog per phase',e3:'Implementation with verification gates',e4:'Deployment and integration documentation',back:'Back to home'}
+    };
+    function setLang(lang){document.documentElement.lang=lang;localStorage.setItem('vd_lang',lang);document.querySelectorAll('.l').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));const d=i18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(d[k])el.textContent=d[k]});}
+    setLang(localStorage.getItem('vd_lang')||'de');document.querySelectorAll('.l').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
+  </script>
+</body>
+</html>
