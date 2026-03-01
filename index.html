@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verbal Dynamics AI</title>
+  <meta name="description" content="Verbal Dynamics AI — We design, build, and verify AI systems that ship." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08090d;
+      --bg-soft: #10131c;
+      --card: #121726;
+      --line: rgba(255,255,255,.08);
+      --text: #eef1ff;
+      --muted: #a3abc8;
+      --cyan: #00e5ff;
+      --purple: #8b5cf6;
+      --pink: #ff2daa;
+      --green: #00f5a0;
+      --grad: linear-gradient(120deg, var(--cyan), var(--purple), var(--pink));
+      --shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at 20% 0%, rgba(0,229,255,.12), transparent 40%),
+                  radial-gradient(circle at 80% 0%, rgba(139,92,246,.12), transparent 40%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: .05;
+      background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+      background-size: 3px 3px;
+      z-index: 2;
+    }
+
+    .container { width: min(1120px, 92vw); margin: 0 auto; position: relative; z-index: 3; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(8,9,13,.65);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-family: Syne, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    .brand span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    .links { display: flex; gap: 1rem; }
+    .links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .95rem;
+      transition: .2s;
+    }
+    .links a:hover { color: var(--text); }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: center;
+      padding: 5rem 0 3rem;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid rgba(0,229,255,.4);
+      color: var(--cyan);
+      border-radius: 999px;
+      padding: .38rem .85rem;
+      font-size: .75rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: Syne, sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      line-height: 1.03;
+      max-width: 900px;
+    }
+
+    .gradient {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      margin-top: 1.1rem;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    .cta-row {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--text);
+      padding: .82rem 1.1rem;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: .2s;
+      background: rgba(255,255,255,.02);
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.2); }
+    .btn.primary {
+      border: none;
+      background: var(--grad);
+      color: #050608;
+    }
+
+    section { padding: 4rem 0; }
+    .section-title {
+      font-family: Syne, sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      margin-bottom: .75rem;
+    }
+    .section-lead { color: var(--muted); max-width: 760px; line-height: 1.7; }
+
+    .grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(18,23,38,.9), rgba(12,16,28,.95));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.1rem;
+      box-shadow: var(--shadow);
+      transition: .2s;
+    }
+    .card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.18); }
+    .card h3 { font-family: Syne, sans-serif; margin-bottom: .45rem; }
+    .card p { color: var(--muted); line-height: 1.65; font-size: .95rem; }
+
+    .steps { margin-top: 1.5rem; display: grid; gap: .8rem; }
+    .step {
+      border: 1px dashed rgba(255,255,255,.16);
+      border-radius: 12px;
+      padding: .9rem 1rem;
+      color: #d7def7;
+      background: rgba(255,255,255,.02);
+    }
+
+    .showcase {
+      margin-top: 1.6rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .show {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.2rem;
+      background: var(--card);
+    }
+
+    .show h4 { font-family: Syne, sans-serif; margin-bottom: .4rem; }
+    .show p { color: var(--muted); margin-bottom: .8rem; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 4rem;
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.showing { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 680px) {
+      .links { display: none; }
+      .hero { padding-top: 2.5rem; min-height: 76vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand">Verbal <span>Dynamics AI</span></div>
+      <div class="links">
+        <a href="#what">What we do</a>
+        <a href="#how">How we work</a>
+        <a href="#proof">Subpages</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero reveal">
+      <div>
+        <span class="badge">AI Strategy • Build • Verification</span>
+        <h1>We turn bold AI ideas into <span class="gradient">deployed systems</span> with real engineering discipline.</h1>
+        <p class="sub">
+          Verbal Dynamics combines human direction with specialized AI agents to design, implement, test, and verify solutions end-to-end.
+          We don’t just prototype — we ship with process.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#what">Explore Services</a>
+          <a class="btn" href="#proof">View Architecture Subpages</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="what" class="reveal">
+      <h2 class="section-title">What We Do</h2>
+      <p class="section-lead">We help founders and teams go from concept to delivery with a full-stack execution engine across product strategy, implementation, verification, and deployment.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>AI Product Strategy</h3>
+          <p>Translate ideas into clear technical roadmaps with scoped phases, acceptance criteria, and execution plans that teams can actually follow.</p>
+        </article>
+        <article class="card">
+          <h3>Implementation Leadership</h3>
+          <p>Coordinate specialized coding agents and human stakeholders to deliver production-ready features, not half-finished demos.</p>
+        </article>
+        <article class="card">
+          <h3>Verification by Design</h3>
+          <p>Independent test requirements and verification cycles ensure each phase passes objective checks before moving forward.</p>
+        </article>
+        <article class="card">
+          <h3>Deployment & Handover</h3>
+          <p>Deploy services cleanly, document architecture, and leave clients with maintainable systems and transparent operational visibility.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="reveal">
+      <h2 class="section-title">How We Work</h2>
+      <p class="section-lead">Our process is structured, iterative, and gate-driven — each stage creates explicit artifacts and verified outcomes.</p>
+      <div class="steps">
+        <div class="step"><strong>1) Define:</strong> clarify goals, constraints, and success criteria.</div>
+        <div class="step"><strong>2) Specify:</strong> write implementation plans and test requirements.</div>
+        <div class="step"><strong>3) Build:</strong> execute with specialized AI coding agents.</div>
+        <div class="step"><strong>4) Verify:</strong> independent checks against requirements and test cases.</div>
+        <div class="step"><strong>5) Deploy:</strong> release to infrastructure and monitor behavior.</div>
+        <div class="step"><strong>6) Iterate:</strong> feed findings back into the next delivery cycle.</div>
+      </div>
+    </section>
+
+    <section id="proof" class="reveal">
+      <h2 class="section-title">Architecture & Operating Model</h2>
+      <p class="section-lead">The following subpages document the current internal operating model and tool topology that inspired this website design.</p>
+      <div class="showcase">
+        <article class="show">
+          <h4>The Delivery Engine</h4>
+          <p>A detailed walkthrough of the multi-agent delivery pipeline, handoff model, and responsibilities per phase.</p>
+          <a class="btn" href="subpages/delivery-engine.html">Open Subpage</a>
+        </article>
+        <article class="show">
+          <h4>Team & Tools</h4>
+          <p>An explicit map of team roles, isolated systems, toolchains, and operational communication layers.</p>
+          <a class="btn" href="subpages/team-tools.html">Open Subpage</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built by Verbal Dynamics AI · Execution with clarity, speed, and verification.
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('showing');
+      });
+    }, { threshold: 0.14 });
+    els.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
